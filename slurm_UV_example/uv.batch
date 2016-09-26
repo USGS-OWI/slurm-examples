@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --job-name=nldas-array # name that you chose
+#SBATCH -n 20 #number of nodes needed
+#SBATCH -p UV           # the partition you want to use, for this case prod is best
+#SBATCH -A cida              # your accountp
+#SBATCH --time=08:00:00           # Overestimated guess at time, the process will be cancelled at the time limit (this case 6 hours), prod allows 21 day jobs.
+#SBATCH --mail-type=ALL         # Send email on all events
+#SBATCH --mail-user=lwinslow@usgs.gov
+#SBATCH  -o %A_%a.log                    # Sets output log file to %j ( will be the jobId returned by sbatch)  
+#SBATCH --export=ALL
+#SBATCH --array=1-100
+
+
+module load tools/szip-2.1-gnu
+module load tools/netcdf-4.3.2-gnu
+
+R CMD BATCH job.R
+
+
+
+
