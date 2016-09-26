@@ -25,8 +25,15 @@ if(length(jobsToCheck) > 0) {
   status$done[jobsToCheck] <- check_status(status$jobID[jobsToCheck])
 }
 
+# overwrite the file
+write.csv(status, 'status.csv', row.names=FALSE)
+
 # if require_done=TRUE, throw an error if we're not done with all jobs
 if(any(!status$done)) {
   require_done <- as.logical(substring(grep("require_done=", commandArgs(), value=TRUE), 1+nchar("require_done=")))
-  if(require_done) stop(paste0(length(which(!status$done)), ' jobs are still incomplete'))
+  if(!require_done) {
+    message(paste0(length(which(!status$done)), ' jobs are ready to run'))
+  } else {
+    stop(paste0(length(which(!status$done)), ' jobs are still incomplete'))
+  }
 }

@@ -3,7 +3,7 @@
 # Macros
 
 NPROCS = 10
-SLURM = FALSE
+SLURM := $(shell command -v srun 2> /dev/null)
 
 # Targets
 
@@ -17,7 +17,7 @@ status.csv : jobs.csv
 
 jobs_done.txt : status.csv
 	Rscript update_status.R "require_done=FALSE"
-ifeq ($(SLURM),TRUE)
+ifdef SLURM
 	srun -n ${NPROCS} -p exper -A cida --time=01:00:00 Rscript run_jobs_unreliably.R
 else
 	Rscript run_jobs_unreliably.R

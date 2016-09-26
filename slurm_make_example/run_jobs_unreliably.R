@@ -22,7 +22,7 @@ jobsConfig <- read.csv('jobs.csv', header=TRUE, stringsAsFactors=FALSE)
 # fail)
 for(jobid in jobsToRun) {
   configrow <- jobsConfig[jobsConfig$jobID==jobid, ]
-  success <- rnorm(1) > 0.3
+  success <- runif(1) > 0.3
   if(success) {
     output <- c(
       paste0('Successfully ran model #', jobid),
