@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH --job-name=handy_job_name  # name that you chose
+#SBATCH -n 100                     # number of nodes needed
+#SBATCH -p exper                  # the partition you want to use, for this case prod is best
+#SBATCH -A cida                    # your accountp
+#SBATCH --time=08:00:00            # Overestimated guess at time, the process will be cancelled at the time limit (this case 6 hours), prod allows 21 day jobs.
+#SBATCH --mail-type=ALL            # Send email on all events
+#SBATCH --mail-user=muser@usgs.gov 
+#SBATCH  -o %j.log                 # Sets output log file to %j ( will be the jobId returned by sbatch)  
+#SBATCH --export=ALL               # this sends all user environment variables to all worker nodes
+
+
+#list of nodes that I need. See what is available with module avail
+module load mpi/openmpi-1.5.5-gcc
+module load tools/netcdf-4.3.2-gnu
+
+#srun runs command on all nodes. 
+srun Rscript r_worker_code.R
+
+#boom, you're done. Maybe have another command that cleans up/organizes or something. 
