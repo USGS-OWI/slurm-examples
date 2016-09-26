@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --job-name=rmpi_example # name that you chose
+#SBATCH -n 20 #number of nodes needed
+#SBATCH -p exper           # the partition you want to use, for this case prod is best
+#SBATCH -A cida              # your accountp
+#SBATCH --time=08:00:00           # Overestimated guess at time, the process will be cancelled at the time limit (this case 6 hours), prod allows 21 day jobs.
+#SBATCH --mail-type=ALL         # Send email on all events
+#SBATCH --mail-user=lwinslow@usgs.gov
+#SBATCH  -o %A.log                    # Sets output log file to %j ( will be the jobId returned by sbatch)  
+#SBATCH --export=ALL
+
+
+module load tools/szip-2.1-gnu
+module load mpi/openmpi-1.5.5-gcc
+module load tools/netcdf-4.3.2-gnu
+
+srun Rscript mpi.r
+
+
+
+
