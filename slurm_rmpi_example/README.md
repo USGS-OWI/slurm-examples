@@ -1,3 +1,8 @@
+##Rmpi Example
+
+This example uses Rmpi and snow to leverage openmpi in creating and distributing jobs to a 
+cluster. 
+
 ##Install Rmpi
 
 I've been successful with this command combo
