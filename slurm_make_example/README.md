@@ -42,13 +42,14 @@ the number of unfinished jobs, like this:
 
 ```
 $ make jobs_done.txt
+Rscript write_status.R "nprocs=10"
 Rscript update_status.R "require_done=FALSE"
-47 jobs are ready to run
-srun -n ${NPROCS} -p exper -A cida --time=01:00:00 Rscript run_jobs_unreliably.R
+100 jobs are ready to run
+srun -n 10 -p exper -A cida --time=01:00:00 Rscript run_jobs_unreliably.R
 srun: job 1327894 queued and waiting for resources
 srun: job 1327894 has been allocated resources
 Rscript update_status.R "require_done=TRUE"
-Error: 16 jobs are still incomplete
+Error: 37 jobs are still incomplete
 Execution halted
 make: *** [jobs_done.txt] Error 1
 ```
